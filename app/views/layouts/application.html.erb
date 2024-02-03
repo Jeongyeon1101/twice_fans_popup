@@ -11,6 +11,15 @@
   </head>
 
   <body>
+    <% if admin_signed_in? %>
+      <!--admin側のurlの場合のみ実行される-->
+      <% if request.fullpath.include? "/admin" %>
+      <% else %>
+      <% end %>
+
+    <% elsif customer_signed_in? %>
+    <% else %>
+    <% end %>
     <%= yield %>
   </body>
 </html>
