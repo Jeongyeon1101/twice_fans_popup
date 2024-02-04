@@ -19,6 +19,7 @@
 
     <% elsif customer_signed_in? %>
     <% else %>
+      <%= link_to "Sign Up", new_customer_registration_path %>
     <% end %>
     <%= yield %>
   </body>

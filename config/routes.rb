@@ -6,8 +6,8 @@ Rails.application.routes.draw do
 
   #顧客用
   devise_for :customers, skip: [:passwords], controllers: {
-    resistrations: "public/resistrations",
-    sessions: "public/sessionss"
+    registrations: "public/registrations",
+    sessions: "public/sessions"
   }
 
   namespace :admin do
