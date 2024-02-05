@@ -16,8 +16,10 @@
       <% if request.fullpath.include? "/admin" %>
       <% else %>
       <% end %>
+      <%= link_to "ログアウト", destroy_admin_session_path, method: :delete %>
 
     <% elsif customer_signed_in? %>
+      ようこそ、<%= current_customer.last_name %>さん！
       <%= link_to "ログアウト", destroy_customer_session_path, method: :delete %>
     <% else %>
       <%= link_to "新規登録", new_customer_registration_path %>
