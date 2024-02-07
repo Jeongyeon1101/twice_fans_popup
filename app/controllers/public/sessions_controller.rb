@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 class Public::SessionsController < Devise::SessionsController
+  before_action :customer_state, only: [:create]
+  #createする前にcustomer_stateを実行する
+
   # before_action :configure_sign_in_params, only: [:create]
 
   # GET /resource/sign_in
@@ -24,7 +27,20 @@ class Public::SessionsController < Devise::SessionsController
   # def configure_sign_in_params
   #   devise_parameter_sanitizer.permit(:sign_in, keys: [:attribute])
   # end
-  def after_sign_in_path_for(resource)
-    root_path
+
+  private
+  #ログインするcustomerがアクティブであるか
+  def customer_state
+    #取得したcustomerのアカウント=入力されたメールアドレスで登録されたアカウント
+    @customer = Customer.find_by(email: params[:customer][:email])
+    #customerのアカウントがメールアドレスと一致しなければreturn(終了)する
+    return if !@customer
+    #customerがアクティブなら終了する
+    if @customer.is_active?
+    else
+      #アクティブでないならアラートを表示し登録画面にリダイレクトする
+      flash[:alert] = "既に退会済みです。再度登録してからログインしてください。"
+      redirect_to new_customer_registration_path
+    end
   end
 end
