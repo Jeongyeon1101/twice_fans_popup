@@ -1,0 +1,38 @@
+<h2>商品新規登録</h2>
+<%= form_with model: @item, url: admin_items_path do |f| %>
+  <table>
+    <tr>
+      <!-- accept: "image/*"は画像ファイルしか投稿できないようにする記述 -->
+      <td><label for="inputImage"><strong>商品画像</strong></label></td>
+      <td><%= f.file_field :image, id:"inputImage", accept: "image/*" %></td>
+    </tr>
+    <tr>
+      <td><label for="inputItemName"><strong>商品名</strong></label></td>
+      <td><%= f.text_field :name, id:"inputItemName" %></td>
+    </tr>
+    <tr>
+      <td><label for="inputIntroduction"><strong>商品説明</strong></label></td>
+      <td><%= f.text_field :introduction, id:"inputIntroduction" %></td>
+    </tr>
+    <tr>
+      <td><label><strong>ジャンル</strong></label></td>
+      <!-- Genre.allの中からidでnameを取得し選択する -->
+      <td><%= f.select :genre_id, options_from_collection_for_select(Genre.all, :id, :name) %></td>
+    </tr>
+    <tr>
+      <td><label for="inputPrice"><strong>税抜価格</strong></label></td>
+      <td><%= f.text_field :price, id:"inputPrice" %></td>
+    </tr>
+    <tr>
+      <td><label><strong>販売ステータス</strong></label></td>
+      <td>
+        <!-- true,falseに対応するlabelを指定する -->
+        <%= f.radio_button :is_active, true %>
+        <strong><%= f.label :is_active_true , "販売中" %></strong>
+        <%= f.radio_button :is_active, false %>
+        <strong><%= f.label :is_active_false, "販売停止中" %></strong>
+      </td>
+    </tr>
+  </table>
+  <%= f.submit "新規登録" %>
+<% end %>

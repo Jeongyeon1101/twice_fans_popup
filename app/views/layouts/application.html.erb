@@ -16,6 +16,7 @@
       <% if request.fullpath.include? "/admin" %>
       <% else %>
       <% end %>
+      <%= link_to "商品新規登録", new_admin_item_path %>
       <%= link_to "ログアウト", destroy_admin_session_path, method: :delete %>
 
     <% elsif customer_signed_in? %>
