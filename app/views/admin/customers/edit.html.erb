@@ -1,0 +1,48 @@
+<h2><%= @customer.last_name %> <%= @customer.first_name %>さんの会員情報編集</h2>
+
+  <%= form_with model: @customer, url: admin_customer_path, method: :patch do |f| %>
+    <table>
+      <tr>
+        <td><strong>会員ID</strong></td>
+        <td><%= @customer.id %></td>
+      </tr>
+      <tr>
+
+        <td><label for="inputName"><strong>氏名</strong></label></td>
+        <td><%= f.text_field :last_name, id:"inputName" %></td>
+        <td><%= f.text_field :first_name, id:"inputName" %></td>
+      </tr>
+      <tr>
+        <td><label for="inputNameKana"><strong>フリガナ</strong></label></td>
+        <td><%= f.text_field :last_name_kana, id:"inputNameKana" %></td>
+        <td><%= f.text_field :first_name_kana, id:"inputNameKana" %></td>
+      </tr>
+      <tr>
+        <td><label for="inputPostalCode"><strong>郵便番号</strong></label></td>
+        <td><%= f.text_field :postal_code, id:"inputPostalCode" %></td>
+      </tr>
+      <tr>
+        <td><label for="inputAddress"><strong>住所</strong></label></td>
+        <td><%= f.text_field :address, id:"inputAddress" %></td>
+      </tr>
+      <tr>
+        <td><label for="inputTelephoneNumber"><strong>電話番号</strong></label></td>
+        <td><%= f.text_field :telephone_number, id:"inputTelephoneNumber" %></td>
+      </tr>
+      <tr>
+        <td><label for="inputEmail"><strong>メールアドレス</strong></label></td>
+        <td><%= f.email_field :email, id:"inputEmail" %></td>
+      </tr>
+      <tr>
+        <td><label><strong>ステータス</strong></label></td>
+        <td>
+          <%= f.radio_button :is_active, true %>
+          <strong><%= f.label :is_active_true, "有効" %></strong>
+          <%= f.radio_button :is_active, false %>
+          <strong><%= f.label :is_active_false, "無効" %></strong>
+        </td>
+      </tr>
+    </table>
+    <%= f.submit "更新" %>
+  <% end %>
+
