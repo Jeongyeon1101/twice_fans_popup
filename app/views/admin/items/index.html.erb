@@ -8,7 +8,11 @@
   <th><strong>ステータス</strong></th>
   <tr>
     <td><%= item.id %></td>
-    <td><%= item.name %></td>
+    <td>
+      <%= link_to admin_item_path(item.id) do %>
+        <%= item.name %>
+      <% end %>
+    </td>
     <td><%= item.price %></td>
     <td><%= item.genre.name %></td>
     <% if item.is_active %>
