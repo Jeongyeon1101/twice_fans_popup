@@ -1,0 +1,39 @@
+<h2><%= @customer.last_name %> <%= @customer.first_name %>さんの会員詳細</h2>
+<table>
+  <tr>
+    <td><strong>会員ID</strong></td>
+    <td><%= @customer.id %></td>
+  </tr>
+  <tr>
+    <td><strong>氏名</strong></td>
+    <td><%= @customer.last_name %> <%= @customer.first_name %></td>
+  </tr>
+  <tr>
+    <td><strong>フリガナ</strong></td>
+    <td><%= @customer.last_name_kana %> <%= @customer.first_name_kana %></td>
+  </tr>
+  <tr>
+    <td><strong>郵便番号</strong></td>
+    <td><%= @customer.postal_code %></td>
+  </tr>
+  <tr>
+    <td><strong>住所</strong></td>
+    <td><%= @customer.address %></td>
+  </tr>
+  <tr>
+    <td><strong>電話番号</strong></td>
+    <td><%= @customer.telephone_number %></td>
+  </tr>
+  <tr>
+    <td><strong>メールアドレス</strong></td>
+    <td><%= @customer.email %></td>
+  </tr>
+  <tr>
+    <td><strong>ステータス</strong></td>
+    <% if @customer.is_active %>
+      <td>有効</td>
+    <% else %>
+      <td>無効</td>
+    <% end %>
+  </tr>
+</table>
