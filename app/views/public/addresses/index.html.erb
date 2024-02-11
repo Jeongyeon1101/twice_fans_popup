@@ -1,2 +1,38 @@
-<h1>配送先一覧</h1>
-<%= @customer.address %>
+<h2>配送先登録・一覧</h2>
+
+<%= form_with model: @address, url: addresses_path do |f| %>
+  <table>
+    <tr>
+      <td><label for="inputPostalCode"><strong>郵便番号(ハイフンなし)</strong></label></td>
+      <td><%= f.text_field :postal_code, autofocus: true, id:"inputPostalCode", placeholder:"郵便番号(ハイフンなし)" %></td>
+    </tr>
+    <tr>
+      <td><label for="inputAddress"><strong>住所</strong></label></td>
+      <td><%= f.text_field :address, id:"inputAddress", placeholder:"住所" %></td>
+    </tr>
+    <tr>
+      <td><label for="inputName"><strong>宛名</strong></label></td>
+      <td> <%= f.text_field :name, id:"inputName", placeholder:"宛名" %></td>
+    </tr>
+  </table>
+  <%= f.submit "登録" %>
+<% end %>
+
+
+<% @addresses.each do |address| %>
+  <table>
+    <th>郵便番号</th>
+    <th>住所</th>
+    <th>宛名</th>
+    <th></th>
+    <tr>
+      <td><%= address.postal_code %></td>
+      <td><%= address.address %></td>
+      <td><%= address.name %></td>
+      <td>
+        <%= link_to "編集", edit_address_path(address.id) %>
+        <%= link_to "削除", address_path(address.id), method: :delete, "data-confirm" => "登録された住所を削除しますか?" %>
+      </td>
+    </tr>
+  </table>
+<% end %>
