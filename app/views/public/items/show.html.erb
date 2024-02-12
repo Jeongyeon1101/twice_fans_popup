@@ -1,0 +1,29 @@
+<h2>商品詳細</h2>
+<%= image_tag @item.get_image(300,200) %></br>
+<table>
+  <tr>
+    <td><h5><%= @item.name %></h5></td>
+  </tr>
+  <tr>
+    <td><%= @item.introduction %></td>
+  </tr>
+  <tr>
+    <td><h5>¥<%= @item.with_tax_price.to_s(:delimited) %>(税込)</h5></td>
+  </tr>
+</table>
+<%= form_with model: @cart_item, url: cart_items_path do |f| %>
+  <table>
+    <tr>
+      <td>
+        <!-- f.select :オブジェクト名, 配列 -->
+        <h5><%= f.select :amount, *[1..10] %></h5>
+        <!-- hidden_field :フォームを隠してデータを送信できる -->
+        <!-- item_idカラムに値(item.id)を入れている -->
+        <%= f.hidden_field :item_id, :value => @item.id %>
+      </td>
+    </tr>
+    <tr>
+      <td><%= f.submit "カートに入れる" %></td>
+    </tr>
+  </table>
+<% end %>
