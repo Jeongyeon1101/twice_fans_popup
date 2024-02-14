@@ -57,3 +57,4 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'devise'
 #画像サイズ調整用gem
 gem 'image_processing', '~> 1.2'
+gem 'enum_help'

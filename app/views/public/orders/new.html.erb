@@ -1,0 +1,88 @@
+<h2>注文情報入力</h2>
+
+<%= form_with model: @order, url: orders_confirm_path do |f| %>
+  <table>
+    <tr>
+      <td><strong>支払方法</strong></td>
+    </tr>
+    <tr>
+      <!-- 支払方法選択のラジオボタン -->
+      <!-- key(値)でキーを呼び出している -->
+      <td>
+        <%= f.radio_button :payment_method, Order.payment_methods.key(0) %>
+        <!-- ラベルとして日本語化された支払方法を設定している -->
+        <%= f.label :payment_method_credit_card, Order.payment_methods_i18n[:credit_card] %>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <%= f.radio_button :payment_method, Order.payment_methods.key(1) %>
+        <!-- ラベルとして日本語化された支払方法を設定している -->
+        <%= f.label :payment_method_transfer, Order.payment_methods_i18n[:transfer] %>
+      </td>
+    </tr>
+    <tr>
+      <td><strong>お届け先</strong></td>
+    </tr>
+    <tr>
+      <!-- 配送先選択のラジオボタン -->
+      <!-- key(値)でキーを呼び出している -->
+      <td>
+        <%= f.radio_button :select_address, Order.select_addresses.key(0) %>
+        <%= f.label :select_address_current_address, Order.select_addresses_i18n[:curent_address] %>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        〒<%= @customer.postal_code %>
+        <%= @customer.address %>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <%= @customer.last_name %>
+        <%= @customer.first_name %>
+      </td>
+    </tr>
+    <tr>
+      <!-- 配送先選択のラジオボタン -->
+      <!-- key(値)でキーを呼び出している -->
+      <td>
+        <%= f.radio_button :select_address, Order.select_addresses.key(1) %>
+        <%= f.label :select_address_registered_address, Order.select_addresses_i18n[:registered_address] %>
+      </td>
+    </tr>
+    <tr>s
+      <!-- f.select :保存先のカラム名, options_from_collection_for_select(コレクションオブジェクト, :オプションのvalueになるカラム名, :オプションの表示テキストになるカラム名またはメソッド名)  -->
+      <!-- コレクションオブジェクトとは :選択肢となるデータの集合のこと。ex) addresses.all -->
+      <td><%= f.select :address_id, options_from_collection_for_select(@customer.addresses.all, :id, :address_display) %></td>
+    </tr>
+    <tr>
+      <!-- 配送先選択のラジオボタン -->
+      <!-- key(値)でキーを呼び出している -->
+      <td>
+        <%= f.radio_button :select_address, Order.select_address.key(2) %>
+        <%= f.label :select_address_new_address, Order.select_addresses_i18n[:new_address] %>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label for="inputPostalCode">郵便番号(ハイフンなし)</label>
+        <%= f.text_field :postal_code, id:"inputPostalCode", placeholder:"0000000" %>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label for="inputAddress">住所</label>
+        <%= f.text_field :address, id:"inputAddress", placeholder:"東京都渋谷区代々木代々木神園町0-0" %>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label for="inputName">宛名</label>
+        <%= f.text_field :name, id:"inputName", placeholder:"山田太郎" %>
+      </td>
+    </tr>
+  </table>
+  <%= f.submit "確認画面に進む" %>
+<% end %>
