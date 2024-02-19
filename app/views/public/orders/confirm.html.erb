@@ -25,4 +25,38 @@
     <td><strong>商品合計</strong></td>
     <td><%= @total_payment.to_s(:delimited) %></td>
   </tr>
+  <tr>
+    <td><strong>請求金額</strong></td>
+    <% @total_payment_plus = @total_payment + @order.shipping_cost %>
+    <td><%= @total_payment_plus.to_s(:delimited) %></td>
+  </tr>
 </table>
+
+<table>
+  <tr>
+    <td><strong>支払方法</strong></td>
+    <td><%= @order.payment_method_i18n %></td>
+  </tr>
+  <tr>
+    <td><strong>お届け先</strong></td>
+    <td>〒<%= @order.postal_code %> <%= @order.address %></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td><%= @order.name %></td>
+  </tr>
+</table>
+
+<!-- hidden_fieldで注文に必要な情報を送信する -->
+<!-- フォームに入力するのではなく見えないフォームなので必ずvalueを指定する -->
+<%= form_with model: @order_new, url: orders_path do |f| %>
+  <%= f.hidden_field :customer_id, :value => current_customer.id %>
+  <%= f.hidden_field :payment_method, :value => @order.payment_method %>
+  <%= f.hidden_field :shipping_cost, :value => 800 %>
+  <%= f.hidden_field :postal_code, :value => @order.postal_code %>
+  <%= f.hidden_field :total_payment, :value => @total_payment + 800 %>
+  <%= f.hidden_field :address, :value => @order.address %>
+  <%= f.hidden_field :name, :value => @order.name %>
+  <%= f.hidden_field :status, :value => "wait_payment" %>
+  <%= f.submit "注文確定" %>
+<% end %>
